@@ -3,6 +3,7 @@ const conf = require('./gulp.conf');
 const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const FlowtypePlugin = require('flowtype-loader/plugin');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -11,8 +12,11 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'eslint'
-      }
+        loaders: [
+          'eslint',
+          'flowtype'
+        ]
+      },
     ],
 
     loaders: [
@@ -47,7 +51,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: conf.path.src('index.html')
     }),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new FlowtypePlugin()
   ],
   postcss: () => [autoprefixer],
   debug: true,

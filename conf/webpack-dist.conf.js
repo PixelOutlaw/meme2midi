@@ -4,6 +4,7 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const FlowtypePlugin = require('flowtype-loader/plugin');
 const pkg = require('../package.json');
 const autoprefixer = require('autoprefixer');
 
@@ -13,7 +14,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'eslint'
+        loaders: ['eslint', 'flowtype']
       }
     ],
 
@@ -53,7 +54,8 @@ module.exports = {
       compress: {unused: true, dead_code: true, warnings: false} // eslint-disable-line camelcase
     }),
     new ExtractTextPlugin('index-[contenthash].css'),
-    new webpack.optimize.CommonsChunkPlugin({name: 'vendor'})
+    new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
+    new FlowtypePlugin()
   ],
   postcss: () => [autoprefixer],
   output: {

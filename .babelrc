@@ -1,4 +1,10 @@
 {
+  "comments": false,
+  "plugins": [
+    "transform-class-properties",
+    "transform-export-extensions",
+    "transform-flow-strip-types"
+  ],
   "presets": [
     "react",
     "es2015"
